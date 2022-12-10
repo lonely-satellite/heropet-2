@@ -19,7 +19,8 @@
     "Ancient",
     "Revered",
     "Haunted",
-    "Accursed"
+    "Accursed",
+    "Creepy",
   ],
   "locations": [
     "Lake",
