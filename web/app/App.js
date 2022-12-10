@@ -56,6 +56,8 @@ export const App/*: Component<>*/ = () => {
       [...adventures.values()].map(adventure => h('li', { key: adventure.id }, [
         adventure.name,
         ' ',
+        h('span', {}, `(${Math.ceil(adventure.durationSeconds)} seconds.)`),
+        ' ',
         h('button', { onClick: onClickAdventureEmbark(adventure), disabled: !!embark }, 'Embark!')
       ]))
     ]),
