@@ -1,0 +1,26 @@
+{
+  "name": "web",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "vite dev"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lonely-satellite/heropet-2.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/lonely-satellite/heropet-2/issues"
+  },
+  "homepage": "https://github.com/lonely-satellite/heropet-2#readme",
+  "devDependencies": {
+    "vite": "^4.0.0"
+  },
+  "dependencies": {
+    "@lukekaalim/act": "^2.4.1",
+    "@lukekaalim/act-web": "^2.0.1"
+  }
+}
