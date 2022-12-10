@@ -43,12 +43,14 @@ export const App/*: Component<>*/ = () => {
   }, [embark, embarkedAdventure])
 
   return [
-    'girl we making game\'s???',
     h('div', {}, [
       !!embark && !!embarkedAdventure && [
         h(EmbarkCountdown, { embark, adventure: embarkedAdventure }),
         h('span', { style: { fontWeight: 'bold' } }, `On an Adventure to ${embarkedAdventure.name}`),
       ]
+    ]),
+    h('div', {}, [
+      'Pick your adventure!'
     ]),
     h('ul', {}, [
       [...adventures.values()].map(adventure => h('li', { key: adventure.id }, [
@@ -58,6 +60,7 @@ export const App/*: Component<>*/ = () => {
       ]))
     ]),
     h('img', { src: './assets/catbard.png' }),
+    'girl we making game\'s???',
   ]
 }
 
