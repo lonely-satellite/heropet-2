@@ -7,7 +7,7 @@ import { h } from "@lukekaalim/act"
 
 export const App/*: Component<>*/ = () => {
   return [
-    'Welcome to hero pet!',
+    'girl we making game\'s???',
     h('img', { src: './assets/catbard.png' }),
   ]
 }
