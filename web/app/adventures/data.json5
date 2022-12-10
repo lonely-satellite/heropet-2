@@ -1,0 +1,32 @@
+{
+  "adjectives": [
+    "Swampy",
+    "Misty",
+
+    "Cold",
+    "Moist",
+    "Humid",
+
+    "Wet",
+    "Dry",
+
+    "Blasted",
+    "Ruined",
+    "Devastated",
+    "Burned",
+    
+    "Lost",
+    "Ancient",
+    "Revered",
+    "Haunted",
+    "Accursed"
+  ],
+  "locations": [
+    "Lake",
+    "Mountain",
+    "Fortress",
+    "Wastes",
+    "Caves",
+    "Forest",
+  ]
+}

@@ -3,9 +3,9 @@
 [include]
 
 [libs]
-
+flow-typed
 [lints]
 
 [options]
-
+module.name_mapper.extension='json5' -> '<PROJECT_ROOT>/flow-stubs/json5.js.flow'
 [strict]
