@@ -45,8 +45,10 @@ export const App/*: Component<>*/ = () => {
   return [
     'girl we making game\'s???',
     h('div', {}, [
-      !!embark && !!embarkedAdventure && 
+      !!embark && !!embarkedAdventure && [
         h(EmbarkCountdown, { embark, adventure: embarkedAdventure }),
+        h('span', { style: { fontWeight: 'bold' } }, `On an Adventure to ${embarkedAdventure.name}`),
+      ]
     ]),
     h('ul', {}, [
       [...adventures.values()].map(adventure => h('li', { key: adventure.id }, [
