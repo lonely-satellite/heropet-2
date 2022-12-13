@@ -7,10 +7,22 @@ import type { Adventure, AdventureID } from "./adventures/generator";
 import { h, useEffect, useMemo, useRef, useState } from "@lukekaalim/act"
 import { repeat } from "./utils"
 import { createRandomAdventure } from "./adventures/generator";
+import { GameOverlay, PhoneSim } from "./layout";
 
 const generateAdventures = () => {
   return repeat(createRandomAdventure, Math.random() * 10)
 }
+
+/*::
+export type GameTimeMs = number;
+
+export type AppState = {
+  adventures: $ReadOnlyArray<Adventure>,
+  embark: null | { id: AdventureID, departed: GameTimeMs };
+};
+export type AppAction =
+  | { type: 'embark', adventureId: AdventureID, departure: GameTimeMs }
+*/
 
 export const App/*: Component<>*/ = () => {
   const [adventures, setAdventures] = useState/*:: <$ReadOnlyArray<Adventure>>*/(generateAdventures);
@@ -43,26 +55,30 @@ export const App/*: Component<>*/ = () => {
   }, [embark, embarkedAdventure])
 
   return [
-    h('div', {}, [
-      !!embark && !!embarkedAdventure && [
-        h(EmbarkCountdown, { embark, adventure: embarkedAdventure }),
-        h('span', { style: { fontWeight: 'bold' } }, `On an Adventure to ${embarkedAdventure.name}`),
-      ]
+    h(PhoneSim, {}, [
+      h(GameOverlay, {}, [
+        h('div', {}, [
+          !!embark && !!embarkedAdventure && [
+            h(EmbarkCountdown, { embark, adventure: embarkedAdventure }),
+            h('span', { style: { fontWeight: 'bold' } }, `On an Adventure to ${embarkedAdventure.name}`),
+          ]
+        ]),
+        h('div', {}, [
+          'Pick your adventure!'
+        ]),
+        h('ul', {}, [
+          [...adventures.values()].map(adventure => h('li', { key: adventure.id }, [
+            adventure.name,
+            ' ',
+            h('span', {}, `(${Math.ceil(adventure.durationSeconds)} seconds.)`),
+            ' ',
+            h('button', { onClick: onClickAdventureEmbark(adventure), disabled: !!embark }, 'Embark!')
+          ]))
+        ]),
+      ]),
+      h('img', { src: './assets/catbard.png' }),
+      'girl we making game\'s???',
     ]),
-    h('div', {}, [
-      'Pick your adventure!'
-    ]),
-    h('ul', {}, [
-      [...adventures.values()].map(adventure => h('li', { key: adventure.id }, [
-        adventure.name,
-        ' ',
-        h('span', {}, `(${Math.ceil(adventure.durationSeconds)} seconds.)`),
-        ' ',
-        h('button', { onClick: onClickAdventureEmbark(adventure), disabled: !!embark }, 'Embark!')
-      ]))
-    ]),
-    h('img', { src: './assets/catbard.png' }),
-    'girl we making game\'s???',
   ]
 }
 
