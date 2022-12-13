@@ -15,7 +15,7 @@ export const GameOverlay/*: Component<>*/ = ({ children }) => {
       h('button', { style: { padding: '16px' } }, 'Weather'),
     ]),
 
-    h('div', { style: { flex: 1, overflow: 'hidden', display: 'flex' }}, children),
+    h('div', { style: { flex: 1, overflow: 'hidden', display: 'flex', flexDirection: 'column' }}, children),
 
     h('div', { className: styles.gameOverlayBar }, [
       h(BarButton, { text: 'Hero' }),
