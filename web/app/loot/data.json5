@@ -3,20 +3,24 @@
     "looking at it grants great strength!",
     "wielding this in battle will make for a powerful weapon.",
     "throwing it at foes will distract them!",
-    "my enemies will be blinded by its power!",
+    "enemies will be blinded by its power!",
     "it looks like it's heavy.",
     "it can't be stopped!",
+    "it looks really cool!",
 
     "the sharp end can be used as a weapon.",
     "the shape of it is threatening.",
+    "it looks like it could cut a bitch.",
 
-    "it can use it to get out of a bind.",
+    "it could be used to get out of a bind.",
     "it harbors a magical secret.",
-    "it will protect me from swords!",
+    "it looks protective!",
 
     "it was made from dragon blood.",
     "it was made from serpent scales.",
-    "it was forged in a mountain.",
+    "it was forged in the molten heart of a mountain.",
+    "it was only spoken of in legend.",
+    "it was forged in the heart of a dying star... allegedly.",
   ],
   object: [
     "Sword",
@@ -69,6 +73,6 @@
     "Ghostly",
     "Light",
     "Evil",
-    "Sticky"
+    "Sticky",
   ],
 }
