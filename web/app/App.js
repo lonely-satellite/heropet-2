@@ -4,16 +4,25 @@ import type { Component } from '@lukekaalim/act';
 import type { Adventure, AdventureID } from "./adventures/generator";
 import type { Hero } from "./hero";
 import type { Loot } from "./loot";
+import type { AdventureReport } from "./adventures/report";
 */
 
 import { h, useEffect, useMemo, useRef, useState } from "@lukekaalim/act"
 import { repeat } from "./utils"
-import { createRandomAdventure } from "./adventures/generator";
+import {
+  calcAdventureDuration,
+  createRandomAdventure,
+} from "./adventures/generator";
 import { GameOverlay, PhoneSim } from "./layout";
 import { generateLoot } from "./loot/generator";
+import { generateAdventureReport } from "./adventures/report";
 
 const generateAdventures = () => {
-  return repeat(createRandomAdventure, Math.random() * 10)
+  return [
+    repeat(i => createRandomAdventure(0), Math.random() * 10),
+    repeat(i => createRandomAdventure(5), Math.random() * 5),
+    repeat(i => createRandomAdventure(10), Math.random() * 2),
+  ].flat(1);
 }
 
 /*::
@@ -30,10 +39,15 @@ export type AppAction =
 */
 
 export const App/*: Component<>*/ = () => {
-  const [loot, setLoot] = useState/*:: <Loot[]>*/([]);
+  const [loot, setLoot] = useState/*:: <Loot[]>*/([
+    generateLoot("Simple", "0"),
+    generateLoot("Simple", "0"),
+    generateLoot("Simple", "0"),
+  ]);
   const [adventures, setAdventures] = useState/*:: <$ReadOnlyArray<Adventure>>*/(generateAdventures);
   const adventureMap = new Map(adventures.map(a => [a.id, a]));
   const [embark, setEmbark] = useState/*:: <?{ id: AdventureID, departed: number }>*/(null);
+  const [report, setReport] = useState/*:: <?AdventureReport>*/(null)
 
   const onClickAdventureEmbark = (adventure) => () => {
     setEmbark({
@@ -42,6 +56,7 @@ export const App/*: Component<>*/ = () => {
     })
   };
   const embarkedAdventure = embark && adventureMap.get(embark.id);
+  const totalPower = loot.reduce((p, l) => l.heroPower + p, 0);
 
   useEffect(() => {
     if (!embark)
@@ -49,19 +64,32 @@ export const App/*: Component<>*/ = () => {
     if (!embarkedAdventure)
       return;
 
-    const timeUntilReturn = embark.departed + (embarkedAdventure.durationSeconds * 1000) - Date.now();
+    const timeUntilReturn = embark.departed + (calcAdventureDuration(embarkedAdventure)) - Date.now();
+
+    const report = generateAdventureReport(embarkedAdventure, totalPower);
+
+    const completedStages = [];
+    for (const stage of embarkedAdventure.stages) {
+      if (stage.difficulty <= totalPower)
+        completedStages.push(stage)
+    }
+    
     const id = setTimeout(() => {
       setEmbark(null);
       setAdventures(generateAdventures())
-      setLoot(l => [...l, generateLoot(embarkedAdventure)])
+      setReport(report);
+      setLoot(l => [
+        ...l,
+        ...completedStages.map(s => s.loot).filter(Boolean)
+      ])
     }, timeUntilReturn);
 
     return () => {
       clearTimeout(id);
     }
-  }, [embark, embarkedAdventure])
+  }, [embark, embarkedAdventure, totalPower])
 
-  const totalPower = loot.reduce((p, l) => l.heroPower + p, 0);
+  
 
   return [
     h(PhoneSim, {}, [
@@ -70,6 +98,30 @@ export const App/*: Component<>*/ = () => {
       h(GameOverlay, {}, [
         h('div', { style: { overflowY: 'auto' } }, [
           h('hr'),
+          h('div', {}, [
+            !!report && [
+              h('h4', {}, 'Last Adventure'),
+              h('div', { style: { fontWeight: 'bold' } }, `Went on an Adventure to ${report.adventure.name}`),
+              h('ol', {}, [
+                report.successList.map(s => {
+                  const loot = s.loot;
+                  return h('li', {}, [
+                    s.reason,
+                    !!loot && [
+                      ` and found the `,
+                      h('span', { style: { fontWeight: 'bold' } }, loot.name),
+                      ` because `,
+                      h('span', { style: { fontStyle: 'italic' } }, loot.heroPowerReason),
+                    ]
+                  ]);
+                }),
+              ]),
+              !!report.failure && h('div', { style: { backgroundColor: 'red' } }, [
+                report.failure.reason
+              ]),
+              h('hr'),
+            ]
+          ]),
           h('div', {}, [
             !!embark && !!embarkedAdventure && [
               h('h4', {}, 'Status'),
@@ -83,7 +135,7 @@ export const App/*: Component<>*/ = () => {
             [...adventures.values()].map(adventure => h('li', { key: adventure.id }, [
               adventure.name,
               ' ',
-              h('span', {}, `(${Math.ceil(adventure.durationSeconds)} seconds.)`),
+              h('span', {}, `(${Math.ceil(calcAdventureDuration(adventure) / 1000)} seconds, difficulty: ${adventure.difficulty})`),
               ' ',
               h('button', { onClick: onClickAdventureEmbark(adventure), disabled: !!embark }, 'Embark!')
             ]))
@@ -93,7 +145,6 @@ export const App/*: Component<>*/ = () => {
           h('ul', {}, [
             loot.map(loot => h('li', {}, [
               `The +${loot.heroPower} ${loot.name}`,
-              h('div', {}, `Looted because ${loot.heroPowerReason}`)
             ]))
           ]),
           h('hr'),
@@ -119,7 +170,11 @@ const VibratingCat = ({ totalPower }) => {
     const animate = () => {
       const x = (Math.random() * (vibrateAmount)) - (vibrateAmount/2);
       const y = (Math.random() * (vibrateAmount)) - (vibrateAmount/2);
-      image.style.transform = `translate(${x}px, ${y}px)`
+      const rotation = totalPower > 20 ? (performance.now() / 1000) * totalPower : 0;
+
+      image.style.transform = `translate(${x}px, ${y}px) rotate(${rotation}deg)`;
+      if (totalPower > 10)
+        image.style.filter = `hue-rotate(${performance.now() / 500 * totalPower}deg)`
       id = requestAnimationFrame(animate);
     };
     let id = requestAnimationFrame(animate);
@@ -139,10 +194,11 @@ const EmbarkCountdown = ({ embark, adventure }) => {
       return;
     
     const id = setInterval(() => {
-      const timeUntilReturn = embark.departed + (adventure.durationSeconds * 1000) - Date.now();
+      const duration = calcAdventureDuration(adventure);
+      const timeUntilReturn = embark.departed + (duration) - Date.now();
       const secondsUntilReturn = Math.floor(timeUntilReturn / 1000);
 
-      const progress = (Date.now() - embark.departed) / (adventure.durationSeconds * 1000);
+      const progress = (Date.now() - embark.departed) / duration;
 
       progressElement.value =  Math.min(100, Math.max(0, progress * 100));
       dateElement.textContent = secondsUntilReturn.toString();

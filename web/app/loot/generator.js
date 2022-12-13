@@ -1,6 +1,7 @@
 // @flow strict
 /*::
 import type { Adventure } from "../adventures";
+import type { AdventureID } from "../adventures/generator";
 */
 
 import { nanoid } from "nanoid";
@@ -19,26 +20,28 @@ export type Loot = {
   heroPowerReason: string,
   heroPower: number,
 
-  aquiredFrom: Adventure,
+  aquiredFrom: AdventureID,
 };
 */
 
-export const generateLoot = (from/*: Adventure*/)/*: Loot*/ => {
-
+export const generateLoot = (
+  externalAdjective/*: string*/,
+  aquiredFrom/*: AdventureID*/,
+)/*: Loot*/ => {
   const object = randomElement(lootData.object);
   const objectAdjective = randomElement([...lootData.adjectives, ...adventureData.adjectives]);
   const power = randomElement(lootData.power);
   const reason = randomElement(lootData.reasons);
 
-  const heroPower = Math.floor(Math.random() * 5);
+  const heroPower = Math.floor(Math.random() * 4) + 1;
 
   return {
     id: nanoid(),
-    name: `${from.adjective}, ${objectAdjective}, ${object} of ${power}`,
+    name: `${externalAdjective}, ${objectAdjective}, ${object} of ${power}`,
 
     heroPowerReason: reason,
     heroPower,
 
-    aquiredFrom: from,
+    aquiredFrom,
   }
 }

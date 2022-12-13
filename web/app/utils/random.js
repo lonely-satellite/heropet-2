@@ -11,3 +11,7 @@ export const repeat = /*:: <T>*/(func/*: number => T*/, count/*: number*/)/*: T[
     array.push(func(i));
   return array;
 }
+
+export const randomInclusiveRange = (min/*: number*/ = 0, max/*: number*/ = 10)/*: number*/ => {
+  return Math.floor(Math.random() * (max + 1)) + min;
+}
