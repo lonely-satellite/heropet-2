@@ -1,4 +1,6 @@
 // @flow strict
 
 export * from './generator.js';
-export * from './data.json5';
+import adventureData from './data.json5';
+
+export { adventureData };
