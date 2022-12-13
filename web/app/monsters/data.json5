@@ -1,5 +1,7 @@
+//format for beast names: adjective+noun
+//resolution format: "You have [resolution] the [beast name]."
 {
-  beastadjectives: [
+  beastadjective: [
     "Crusty",
     "Mouldy",
     "Smelly",
@@ -28,7 +30,7 @@
     "Playful",
   ],
 
-  beasts: [
+  beast: [
     "Beholder",
     "Troll",
     "Golem",
@@ -44,10 +46,11 @@
     "Brownie",
   ],
 
-  resolutions: [
+  posresolution: [
     "defeated",
     "conquered",
     "befriended",
+    
     "escaped",
     "evaded",
 
@@ -63,5 +66,14 @@
     "sworn vengeance on",
     "decided to murder the entire family of",
     "embarked on a generational quest to exterminate",
+  ],
+
+  negresolution: [
+    "barely escaped",
+    "escaped with your life from",
+    "shamefully retreated from",
+    "run away in terror from",
+    "realised you must be stronger to defeat",
+    "decided to take the L and yeet away from",
   ]
 }
