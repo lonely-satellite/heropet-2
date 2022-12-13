@@ -1,0 +1,57 @@
+{
+  beastadjectives: [
+    "Crusty",
+    "Mouldy",
+    "Smelly",
+    "Oily",
+
+    "Wretched",
+    "Fearsome",
+    "Powerful",
+    "Man-eating",
+    "Weakened",
+    "Half-dead",
+
+    "Unusually Large",
+    "Unusually Tiny",
+
+    "Old",
+    "Young",
+    "Mature",
+    "Immature",
+  ],
+
+  beasts: [
+    "Beholder",
+    "Troll",
+    "Golem",
+    "Titan",
+    "Kobold",
+    "Sahagin",
+    "Buzzard",
+    "Mimic",
+    "Slime",
+    "Ghost",
+    "Zombie",
+    "Spriggan",
+    "Brownie",
+  ],
+
+  resolutions: [
+    "defeated",
+    "conquered",
+    "befriended",
+    "escaped",
+    "evaded",
+    "embarrassed",
+    "clowned on",
+    "gained a mutual respect for",
+    "come to an agreement with",
+    "forged an alliance with",
+    "agreed to a truce with",
+    "peacefully parted ways with",
+    "sworn vengeance on",
+    "decided to murder the entire family of",
+    "embarked on a generational quest to exterminate",
+  ]
+}

@@ -1,22 +1,22 @@
 {
   reasons: [
     "looking at it grants great strength!",
-    "weilding this in battle will make for a powerful weapon.",
-    "throwing it at foes will distract them",
-    "my enemies will be blinded by its power",
-    "it looks like it's heavy",
-    "it cant be stopped!",
+    "wielding this in battle will make for a powerful weapon.",
+    "throwing it at foes will distract them!",
+    "my enemies will be blinded by its power!",
+    "it looks like it's heavy.",
+    "it can't be stopped!",
 
-    "the sharp end can be used as a weapon",
-    "the shape of it is threatening",
+    "the sharp end can be used as a weapon.",
+    "the shape of it is threatening.",
 
     "it can use it to get out of a bind.",
-    "it harbors a magical secret",
-    "it will protect me from sword!",
+    "it harbors a magical secret.",
+    "it will protect me from swords!",
 
-    "it was made from dragon blood",
-    "it was made from serpent scales",
-    "it was forged in a mountain",
+    "it was made from dragon blood.",
+    "it was made from serpent scales.",
+    "it was forged in a mountain.",
   ],
   object: [
     "Sword",
