@@ -5,7 +5,7 @@ import type { AdventureID } from "../adventures/generator";
 */
 
 import { nanoid } from "nanoid";
-import { randomElement } from "../utils";
+import { randomElement, repeat } from "../utils";
 
 import lootData from './data.json5';
 import { adventureData } from "../adventures";
@@ -34,7 +34,7 @@ export const generateLoot = (
   const power = randomElement(lootData.power);
   const reason = randomElement([
     ...lootData.reasons,
-    `it was forged from the blood of a ${generateMonster().name}.`
+    ...repeat(() => `it was forged from the blood of a ${generateMonster().name}.`, 10),
   ]);
 
   const heroPower = Math.floor(Math.random() * 4) + 1;
