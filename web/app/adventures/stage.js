@@ -31,7 +31,7 @@ export const generateAdventureStage = (
 )/*: AdventureStage*/ => {
   const localDifficulty = randomInclusiveRange(-5, 5);
   const difficulty = Math.floor(baseDifficulty + localDifficulty);
-  const loot = localDifficulty > 2 && generateLoot(adventureAdjective, adventureId) || null;
+  const loot = localDifficulty > 1 && generateLoot(adventureAdjective, adventureId) || null;
 
   return {
     id: nanoid(),

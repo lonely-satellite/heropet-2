@@ -13,5 +13,6 @@ export const repeat = /*:: <T>*/(func/*: number => T*/, count/*: number*/)/*: T[
 }
 
 export const randomInclusiveRange = (min/*: number*/ = 0, max/*: number*/ = 10)/*: number*/ => {
-  return Math.floor(Math.random() * (max + 1)) + min;
+  const difference = Math.abs(max - min);
+  return Math.floor(Math.random() * (difference + 1)) + min;
 }
