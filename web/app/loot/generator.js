@@ -9,6 +9,7 @@ import { randomElement } from "../utils";
 
 import lootData from './data.json5';
 import { adventureData } from "../adventures";
+import { generateMonster } from "../monsters";
 
 
 /*::
@@ -31,7 +32,10 @@ export const generateLoot = (
   const object = randomElement(lootData.object);
   const objectAdjective = randomElement([...lootData.adjectives, ...adventureData.adjectives]);
   const power = randomElement(lootData.power);
-  const reason = randomElement(lootData.reasons);
+  const reason = randomElement([
+    ...lootData.reasons,
+    `it was forged from the blood of a ${generateMonster().name}.`
+  ]);
 
   const heroPower = Math.floor(Math.random() * 4) + 1;
 
