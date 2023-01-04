@@ -59,3 +59,17 @@ export const generateBossAdventureStage = (
     loot,
   }
 }
+
+/**
+ * Calculate the time (relative to the start of an adventure) that a particular stage would
+ * "finish" at.
+ */
+export const calculateStageFinishTimes = (stages/*: AdventureStage[]*/)/*: GameTimeMs[]*/ => {
+  const finishTimes = [];
+  let currentLength = 0;
+  for (const stage of stages) {
+    currentLength += stage.duration;
+    finishTimes.push(currentLength);
+  }
+  return finishTimes;
+};

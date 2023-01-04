@@ -19,3 +19,7 @@ export const createHero = ()/*: Hero*/ => ({
 
   loot: [],
 })
+
+export const calcHeroPower = (hero/*: Hero*/)/*: number*/ => {
+  return hero.loot.reduce((a, c) => a + c.heroPower, 0)
+}

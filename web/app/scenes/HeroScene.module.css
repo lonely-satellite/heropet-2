@@ -1,0 +1,30 @@
+.heroSceneRoomContainer {
+  perspective: 250px;
+  flex: 1;
+  display: flex;
+
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+.heroSceneRoomGrid {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+
+  transform: translateZ(-100px) rotateX(15deg);
+}
+
+.heroSceneRoomRow {
+  display: flex;
+  flex-direction: row;
+  flex: 1;
+}
+.heroSceneRoomCell {
+  display: flex;
+  flex: 1;
+}
+.heroSceneRoomButton {
+  flex: 1;
+}
